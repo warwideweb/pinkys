@@ -1,9 +1,11 @@
 # PINKY'S Restaurant Website 🐷
 
-**Live:** https://warwideweb.github.io/pinkys/
+**Live:** https://pinkysbkk.com
+**Alt:** https://warwideweb.github.io/pinkys/
 **Repo:** https://github.com/warwideweb/pinkys
 **Client:** Friend's BBQ pork restaurant, Sukhumvit 36, Bangkok
-**Status:** ✅ Complete
+**Domain:** PinkysBKK.com (Namecheap → GitHub Pages)
+**Status:** ✅ Complete + Custom Domain
 
 ---
 
