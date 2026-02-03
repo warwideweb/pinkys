@@ -347,7 +347,7 @@
             background: var(--white);
             border-radius: 24px;
             padding: 24px;
-            margin: 30px 0;
+            margin: 30px 0 20px;
             box-shadow: var(--shadow-soft);
         }
         
@@ -399,48 +399,52 @@
             margin-top: 4px;
         }
         
-        /* Order Buttons */
+        /* Order Buttons - Split Button Design */
         .order-buttons {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
             z-index: 100;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 50px;
+            display: flex;
+            background: var(--white);
+            border-radius: 20px;
             box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(10px);
+            overflow: hidden;
         }
         
         .order-btn {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            padding: 12px 20px;
-            border-radius: 50px;
+            padding: 16px 28px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px;
             color: white;
             transition: all 0.3s ease;
+            min-width: 130px;
         }
-        
-        /* Order button styling */
         
         .order-btn.grab {
             background: linear-gradient(135deg, #00B14F 0%, #00913F 100%);
+            border-radius: 20px 0 0 20px;
         }
         
         .order-btn.line {
             background: linear-gradient(135deg, #06C755 0%, #00B548 100%);
+            border-radius: 0 20px 20px 0;
         }
         
         .order-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+        
+        .order-btn:active {
+            transform: scale(0.98);
         }
         
         /* Modal */
@@ -618,7 +622,8 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px 20px 100px;
+            padding: 20px 20px 100px;
+            margin-top: -10px;
             position: relative;
             z-index: 10;
         }
@@ -704,8 +709,16 @@
         
         @media (max-width: 600px) {
             .menu-grid { grid-template-columns: 1fr; }
-            .order-buttons { padding: 10px 12px; gap: 8px; }
-            .order-btn { padding: 10px 16px; font-size: 13px; }
+            .order-buttons { 
+                width: calc(100% - 40px);
+                max-width: 320px;
+            }
+            .order-btn { 
+                flex: 1;
+                padding: 14px 20px; 
+                font-size: 14px;
+                min-width: auto;
+            }
         }
     </style>
 </head>
