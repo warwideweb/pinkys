@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐷 PINKY'S - Yummy Grilled Pork!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-light: #FFE4EC;
+            --pink-medium: #FFB6C1;
+            --pink-main: #FF69B4;
+            --pink-dark: #FF1493;
+            --pink-deep: #DB7093;
+            --cream: #FFF8F0;
+            --text: #5D4037;
+            --white: #ffffff;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--pink-light) 0%, var(--cream) 50%, var(--pink-light) 100%);
+            min-height: 100vh;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        
+        /* Floating bubbles background */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 182, 193, 0.8), rgba(255, 105, 180, 0.4));
+            border-radius: 50%;
+            animation: float-up linear infinite;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        @keyframes float-up {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: linear-gradient(180deg, var(--pink-medium) 0%, transparent 100%);
+        }
+        
+        .logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(48px, 12vw, 80px);
+            font-weight: 700;
+            color: var(--pink-dark);
+            text-shadow: 
+                3px 3px 0 var(--white),
+                6px 6px 0 var(--pink-medium),
+                0 0 30px rgba(255, 105, 180, 0.5);
+            letter-spacing: 4px;
+            animation: bounce-title 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce-title {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .logo .pig {
+            display: inline-block;
+            animation: wiggle 1s ease-in-out infinite;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        .tagline {
+            font-size: clamp(16px, 4vw, 22px);
+            color: var(--pink-deep);
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        .tagline span {
+            display: inline-block;
+            animation: pop 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes pop {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Main content */
+        main {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Menu section */
+        .menu-title {
+            text-align: center;
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(28px, 6vw, 42px);
+            color: var(--pink-dark);
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .menu-title::before,
+        .menu-title::after {
+            content: '✨';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+        
+        .menu-title::before { left: 10%; }
+        .menu-title::after { right: 10%; animation-delay: 0.75s; }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+            50% { opacity: 0.5; transform: translateY(-50%) scale(1.3); }
+        }
+        
+        /* Menu grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .menu-item {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 32px rgba(255, 105, 180, 0.2),
+                0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--pink-main);
+            box-shadow: 
+                0 16px 48px rgba(255, 105, 180, 0.3),
+                0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .menu-item-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--pink-dark);
+            margin-bottom: 8px;
+        }
+        
+        .menu-item-desc {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        
+        .menu-item-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 2px dashed var(--pink-light);
+        }
+        
+        .price-baht {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--pink-dark);
+        }
+        
+        .price-usd {
+            font-size: 14px;
+            color: var(--pink-deep);
+            background: var(--pink-light);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+        
+        .heart-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+        
+        .heart-btn:hover {
+            transform: scale(1.2);
+            background: var(--pink-main);
+        }
+        
+        .heart-btn.liked {
+            background: var(--pink-main);
+            animation: heart-pop 0.4s ease;
+        }
+        
+        @keyframes heart-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+        
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--pink-dark);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 5;
+        }
+        
+        /* Drinks Section */
+        .drinks-section {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
+        }
+        
+        .drinks-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 28px;
+            color: var(--pink-dark);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .drinks-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .drink-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--pink-light);
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            min-width: 150px;
+        }
+        
+        .drink-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .drink-emoji {
+            font-size: 48px;
+            margin-bottom: 10px;
+            animation: drink-bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes drink-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .drink-name {
+            font-weight: 700;
+            color: var(--pink-dark);
+            margin-bottom: 5px;
+        }
+        
+        .drink-price {
+            font-size: 14px;
+            color: var(--pink-deep);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(0deg, var(--pink-medium) 0%, transparent 100%);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-pig {
+            font-size: 60px;
+            animation: footer-bounce 1s ease-in-out infinite;
+        }
+        
+        @keyframes footer-bounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        .footer-text {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 18px;
+            color: var(--pink-dark);
+            margin-top: 15px;
+        }
+        
+        .social-icons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: var(--pink-main);
+        }
+        
+        /* Order popup */
+        .order-popup {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--pink-dark);
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            box-shadow: 0 8px 32px rgba(255, 20, 147, 0.4);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 100;
+        }
+        
+        .order-popup.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .drinks-grid {
+                gap: 20px;
+            }
+            
+            .drink-item {
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Bubbles -->
+    <div class="bubbles" id="bubbles"></div>
+    
+    <header>
+        <div class="logo">
+            <span class="pig">🐷</span> PINKY'S
+        </div>
+        <p class="tagline" id="tagline"></p>
+    </header>
+    
+    <main>
+        <h2 class="menu-title">🍖 Our Yummy Menu 🍖</h2>
+        
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-item" onclick="addToOrder(this)">
+                <div class="image-wrapper">
+                    <span class="item-badge">Popular!</span>
+                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
+                    <img src="images/dish1.jpg" alt="Pinky's Box">
+                </div>
+                <div class="menu-item-content">
+                    <h3 class="menu-item-name">Pinky's Box 🎀</h3>
+                    <p class="menu-item-desc">Our signature honey-glazed grilled pork served in an adorable eco-box with fluffy jasmine rice & fresh cucumber!</p>
+                    <div class="menu-item-price">
+                        <span class="price-baht">฿199</span>
+                        <span class="price-usd">~$5.70</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="menu-item" onclick="addToOrder(this)">
+                <div class="image-wrapper">
+                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
+                    <img src="images/dish2.jpg" alt="Classic Piggy Plate">
+                </div>
+                <div class="menu-item-content">
+                    <h3 class="menu-item-name">Classic Piggy Plate 🐽</h3>
+                    <p class="menu-item-desc">Perfectly caramelized pork slices with our secret sweet glaze, served on a cozy plate with rice & cukes!</p>
+                    <div class="menu-item-price">
+                        <span class="price-baht">฿209</span>
+                        <span class="price-usd">~$6.00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="menu-item" onclick="addToOrder(this)">
+                <div class="image-wrapper">
+                    <span class="item-badge">Chef's Pick</span>
+                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
+                    <img src="images/dish3.jpg" alt="Golden Oink Bowl">
+                </div>
+                <div class="menu-item-content">
+                    <h3 class="menu-item-name">Golden Oink Bowl ✨</h3>
+                    <p class="menu-item-desc">Extra crispy edges, extra juicy inside! Our premium cut with that beautiful char you'll dream about!</p>
+                    <div class="menu-item-price">
+                        <span class="price-baht">฿219</span>
+                        <span class="price-usd">~$6.30</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="menu-item" onclick="addToOrder(this)">
+                <div class="image-wrapper">
+                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
+                    <img src="images/dish4.jpg" alt="Belly Bites">
+                </div>
+                <div class="menu-item-content">
+                    <h3 class="menu-item-name">Belly Bites 😋</h3>
+                    <p class="menu-item-desc">Thick-cut pork belly slices glazed to perfection! Pure piggy heaven for the true pork lovers!</p>
+                    <div class="menu-item-price">
+                        <span class="price-baht">฿179</span>
+                        <span class="price-usd">~$5.15</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 5 -->
+            <div class="menu-item" onclick="addToOrder(this)">
+                <div class="image-wrapper">
+                    <span class="item-badge">New!</span>
+                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
+                    <img src="images/dish5.jpg" alt="Sticky Ribs">
+                </div>
+                <div class="menu-item-content">
+                    <h3 class="menu-item-name">Sticky Ribs 🍯</h3>
+                    <p class="menu-item-desc">Fall-off-the-bone tender! Marinated for 24 hours in our sweet & savory sauce. Finger-lickin' guaranteed!</p>
+                    <div class="menu-item-price">
+                        <span class="price-baht">฿229</span>
+                        <span class="price-usd">~$6.60</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Drinks Section -->
+        <div class="drinks-section">
+            <h3 class="drinks-title">🥤 Refreshments 🥤</h3>
+            <div class="drinks-grid">
+                <div class="drink-item" onclick="addDrink('Coke Zero')">
+                    <div class="drink-emoji">🥤</div>
+                    <div class="drink-name">Coke Zero</div>
+                    <div class="drink-price">฿35 / ~$1.00</div>
+                </div>
+                <div class="drink-item" onclick="addDrink('Aura Water')">
+                    <div class="drink-emoji">💧</div>
+                    <div class="drink-name">Aura Water</div>
+                    <div class="drink-price">฿25 / ~$0.70</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-pig">🐷</div>
+        <p class="footer-text">Made with 💕 by PINKY'S</p>
+        <p style="color: var(--pink-deep); margin-top: 10px; font-size: 14px;">Open Daily 10AM - 9PM</p>
+        <div class="social-icons">
+            <a href="#" class="social-icon">📸</a>
+            <a href="#" class="social-icon">📍</a>
+            <a href="#" class="social-icon">📞</a>
+        </div>
+    </footer>
+    
+    <div class="order-popup" id="orderPopup">Added to your order! 🐷💕</div>
+    
+    <script>
+        // Create floating bubbles
+        function createBubbles() {
+            const container = document.getElementById('bubbles');
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 60 + 20;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                bubble.style.animationDelay = (Math.random() * 10) + 's';
+                container.appendChild(bubble);
+            }
+        }
+        createBubbles();
+        
+        // Animated tagline
+        const tagline = "Where every bite is oink-tastic! 💕";
+        const taglineEl = document.getElementById('tagline');
+        tagline.split('').forEach((char, i) => {
+            const span = document.createElement('span');
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.style.animationDelay = (i * 0.05) + 's';
+            taglineEl.appendChild(span);
+        });
+        
+        // Toggle heart
+        function toggleHeart(e, btn) {
+            e.stopPropagation();
+            btn.classList.toggle('liked');
+            btn.textContent = btn.classList.contains('liked') ? '💖' : '🤍';
+        }
+        
+        // Add to order popup
+        function addToOrder(item) {
+            const popup = document.getElementById('orderPopup');
+            const name = item.querySelector('.menu-item-name').textContent;
+            popup.textContent = `${name} added! 🐷💕`;
+            popup.classList.add('visible');
+            setTimeout(() => popup.classList.remove('visible'), 2000);
+        }
+        
+        function addDrink(name) {
+            const popup = document.getElementById('orderPopup');
+            popup.textContent = `${name} added! 🥤`;
+            popup.classList.add('visible');
+            setTimeout(() => popup.classList.remove('visible'), 2000);
+        }
+    </script>
+</body>
+</html>
