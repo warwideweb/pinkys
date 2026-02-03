@@ -16,6 +16,7 @@
             --cream: #FFF8F0;
             --text: #5D4037;
             --white: #ffffff;
+            --line-green: #06C755;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,10 +32,8 @@
         /* Floating bubbles */
         .bubbles {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 0;
             overflow: hidden;
@@ -68,9 +67,10 @@
         }
         
         .logo-img {
-            max-width: clamp(180px, 45vw, 300px);
+            max-width: clamp(160px, 40vw, 280px);
             height: auto;
-            filter: drop-shadow(0 8px 24px rgba(255, 105, 180, 0.4));
+            filter: drop-shadow(0 6px 20px rgba(255, 105, 180, 0.4));
+            mix-blend-mode: multiply; /* This hides the white background! */
         }
         
         @keyframes bounce-title {
@@ -79,15 +79,10 @@
         }
         
         .location {
-            margin-top: 12px;
+            margin-top: 10px;
             font-size: 14px;
             color: var(--pink-deep);
             font-weight: 600;
-        }
-        
-        .location a {
-            color: var(--pink-dark);
-            text-decoration: none;
         }
         
         .rating {
@@ -110,76 +105,45 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            padding-bottom: 100px;
         }
         
         /* Section Title */
         .section-title {
             text-align: center;
             font-family: 'Fredoka', sans-serif;
-            font-size: clamp(24px, 5vw, 36px);
+            font-size: clamp(22px, 5vw, 32px);
             color: var(--pink-dark);
-            margin: 30px 0 20px;
-            position: relative;
-        }
-        
-        .section-title::before,
-        .section-title::after {
-            content: '✨';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            animation: sparkle 1.5s ease-in-out infinite;
-        }
-        
-        .section-title::before { left: 5%; }
-        .section-title::after { right: 5%; animation-delay: 0.75s; }
-        
-        @keyframes sparkle {
-            0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
-            50% { opacity: 0.5; transform: translateY(-50%) scale(1.3); }
+            margin: 25px 0 18px;
         }
         
         /* Menu Grid */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
         }
         
         .menu-item {
             background: var(--white);
-            border-radius: 20px;
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.15);
+            box-shadow: 0 6px 24px rgba(255, 105, 180, 0.12);
             transition: all 0.3s ease;
             cursor: pointer;
             border: 3px solid transparent;
+            position: relative;
         }
         
         .menu-item:hover {
-            transform: translateY(-6px);
+            transform: translateY(-5px);
             border-color: var(--pink-main);
-            box-shadow: 0 16px 48px rgba(255, 105, 180, 0.25);
+            box-shadow: 0 12px 36px rgba(255, 105, 180, 0.2);
         }
         
-        .menu-item.unavailable {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        
-        .menu-item.unavailable::after {
-            content: 'Coming Soon 💕';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--pink-dark);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 14px;
+        .menu-item:active {
+            transform: scale(0.98);
         }
         
         .image-wrapper {
@@ -189,42 +153,59 @@
         
         .menu-item img {
             width: 100%;
-            height: 180px;
+            height: 170px;
             object-fit: cover;
             transition: transform 0.3s ease;
         }
         
         .menu-item:hover img {
-            transform: scale(1.08);
+            transform: scale(1.06);
         }
         
         .item-badge {
             position: absolute;
-            top: 12px;
-            left: 12px;
+            top: 10px;
+            left: 10px;
             background: var(--pink-dark);
             color: var(--white);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+        }
+        
+        .tap-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .menu-item:hover .tap-hint {
+            opacity: 1;
         }
         
         .heart-btn {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 36px;
-            height: 36px;
+            top: 10px;
+            right: 10px;
+            width: 34px;
+            height: 34px;
             background: var(--white);
             border: none;
             border-radius: 50%;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            z-index: 5;
         }
         
         .heart-btn:hover, .heart-btn.liked {
@@ -233,82 +214,106 @@
         }
         
         .menu-item-content {
-            padding: 16px;
+            padding: 14px;
         }
         
         .menu-item-name {
             font-family: 'Fredoka', sans-serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--pink-dark);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         
         .menu-item-thai {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--pink-deep);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .menu-item-desc {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text);
             line-height: 1.4;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         
         .menu-item-price {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 12px;
+            padding-top: 10px;
             border-top: 2px dashed var(--pink-light);
         }
         
         .price-baht {
             font-family: 'Fredoka', sans-serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--pink-dark);
         }
         
         .price-usd {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--pink-deep);
             background: var(--pink-light);
-            padding: 4px 10px;
-            border-radius: 10px;
+            padding: 3px 8px;
+            border-radius: 8px;
+        }
+        
+        /* Unavailable items */
+        .menu-item.unavailable {
+            opacity: 0.5;
+        }
+        
+        .coming-soon-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--pink-dark);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 12px;
+            z-index: 10;
+            white-space: nowrap;
         }
         
         /* Drinks */
         .drinks-section {
             background: var(--white);
-            border-radius: 20px;
-            padding: 24px;
-            margin: 30px 0;
-            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.12);
+            border-radius: 18px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: 0 6px 24px rgba(255, 105, 180, 0.1);
         }
         
         .drinks-title {
             font-family: 'Fredoka', sans-serif;
-            font-size: 24px;
+            font-size: 22px;
             color: var(--pink-dark);
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         
         .drinks-grid {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
         }
         
         .drink-item {
             text-align: center;
-            padding: 16px 24px;
+            padding: 14px 20px;
             background: var(--pink-light);
-            border-radius: 16px;
+            border-radius: 14px;
             transition: transform 0.3s ease;
             cursor: pointer;
         }
@@ -318,96 +323,281 @@
         }
         
         .drink-emoji {
-            font-size: 40px;
-            margin-bottom: 8px;
+            font-size: 36px;
+            margin-bottom: 6px;
         }
         
         .drink-name {
             font-weight: 700;
             color: var(--pink-dark);
-            font-size: 14px;
-            margin-bottom: 4px;
+            font-size: 13px;
+        }
+        
+        .drink-thai {
+            font-size: 10px;
+            color: var(--pink-deep);
+            margin: 2px 0;
         }
         
         .drink-price {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--pink-deep);
+            font-weight: 600;
+        }
+        
+        /* Photo Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.visible {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modal-pop 0.3s ease;
+        }
+        
+        @keyframes modal-pop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: var(--pink-dark);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .modal-gallery {
+            position: relative;
+        }
+        
+        .modal-main-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .modal-thumbnails {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            overflow-x: auto;
+            background: var(--pink-light);
+        }
+        
+        .modal-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .modal-thumb:hover, .modal-thumb.active {
+            border-color: var(--pink-dark);
+            transform: scale(1.05);
+        }
+        
+        .modal-info {
+            padding: 20px;
+        }
+        
+        .modal-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            color: var(--pink-dark);
+            margin-bottom: 4px;
+        }
+        
+        .modal-thai {
+            color: var(--pink-deep);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        
+        .modal-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+        
+        .modal-price {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 28px;
+            color: var(--pink-dark);
+            margin-bottom: 16px;
+        }
+        
+        .modal-price span {
+            font-size: 14px;
+            color: var(--pink-deep);
+            font-family: 'Quicksand', sans-serif;
+        }
+        
+        .order-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--line-green);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .order-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(6, 199, 85, 0.4);
+        }
+        
+        /* Floating Order Button */
+        .floating-order {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--line-green);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 24px rgba(6, 199, 85, 0.4);
+            z-index: 100;
+            animation: pulse-btn 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-btn {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+        }
+        
+        .floating-order:hover {
+            background: #05a847;
+        }
+        
+        .line-icon {
+            width: 24px;
+            height: 24px;
         }
         
         /* Footer */
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px 100px;
             background: linear-gradient(0deg, var(--pink-medium) 0%, transparent 100%);
             position: relative;
             z-index: 10;
         }
         
         .footer-logo {
-            max-width: 100px;
+            max-width: 90px;
+            mix-blend-mode: multiply;
             animation: footer-bounce 2s ease-in-out infinite;
         }
         
         @keyframes footer-bounce {
             0%, 100% { transform: translateY(0) rotate(-3deg); }
-            50% { transform: translateY(-10px) rotate(3deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
         }
         
         .footer-text {
             font-family: 'Fredoka', sans-serif;
-            font-size: 16px;
+            font-size: 15px;
             color: var(--pink-dark);
-            margin-top: 12px;
+            margin-top: 10px;
         }
         
         .footer-hours {
             color: var(--pink-deep);
-            margin-top: 8px;
-            font-size: 13px;
+            margin-top: 6px;
+            font-size: 12px;
         }
         
         .social-icons {
-            margin-top: 16px;
+            margin-top: 14px;
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
         }
         
         .social-icon {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             background: var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             text-decoration: none;
-            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.25);
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
             transition: all 0.3s ease;
         }
         
         .social-icon:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             background: var(--pink-main);
         }
         
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 90px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: var(--pink-dark);
             color: var(--white);
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-radius: 50px;
             font-family: 'Fredoka', sans-serif;
-            font-size: 15px;
-            box-shadow: 0 8px 32px rgba(255, 20, 147, 0.4);
+            font-size: 14px;
+            box-shadow: 0 6px 24px rgba(255, 20, 147, 0.4);
             opacity: 0;
             transition: all 0.4s ease;
-            z-index: 100;
+            z-index: 99;
         }
         
         .toast.visible {
@@ -415,9 +605,16 @@
             opacity: 1;
         }
         
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1001;
+        }
+        
         @media (max-width: 600px) {
             .menu-grid { grid-template-columns: 1fr; }
-            .section-title::before, .section-title::after { display: none; }
+            .modal-content { margin: 10px; }
         }
     </style>
 </head>
@@ -429,7 +626,7 @@
             <img src="images/logo.jpg" alt="Pinky's" class="logo-img">
         </div>
         <p class="location">📍 Sukhumvit 36, Bangkok</p>
-        <div class="rating">⭐ 5.0 <span style="color: var(--muted);">(8 reviews)</span></div>
+        <div class="rating">⭐ 5.0 <span style="color: #999;">(8)</span></div>
     </header>
     
     <main>
@@ -437,16 +634,17 @@
         
         <div class="menu-grid">
             <!-- Juicy BBQ Pork Bowl 200g -->
-            <div class="menu-item" onclick="addToOrder(this)">
+            <div class="menu-item" onclick="openModal(0)">
                 <div class="image-wrapper">
                     <span class="item-badge">Most Liked</span>
                     <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
                     <img src="images/dish2.jpg" alt="Juicy BBQ Pork Bowl 200g">
+                    <span class="tap-hint">Tap for more 📸</span>
                 </div>
                 <div class="menu-item-content">
                     <h3 class="menu-item-name">Juicy BBQ Pork Bowl 200g</h3>
                     <p class="menu-item-thai">ข้าวบาบีคิวคอหมูย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Rich, tender pork jowl with beautiful marbling, marinated 24 hours in our secret sauce. Served with jasmine rice.</p>
+                    <p class="menu-item-desc">Rich, tender pork jowl with beautiful marbling, marinated 24 hours in our secret sauce.</p>
                     <div class="menu-item-price">
                         <span class="price-baht">฿279</span>
                         <span class="price-usd">~$8.00</span>
@@ -455,16 +653,17 @@
             </div>
             
             <!-- Juicy BBQ Pork Bowl 150g -->
-            <div class="menu-item" onclick="addToOrder(this)">
+            <div class="menu-item" onclick="openModal(1)">
                 <div class="image-wrapper">
                     <span class="item-badge">Most Liked</span>
                     <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
                     <img src="images/dish3.jpg" alt="Juicy BBQ Pork Bowl 150g">
+                    <span class="tap-hint">Tap for more 📸</span>
                 </div>
                 <div class="menu-item-content">
                     <h3 class="menu-item-name">Juicy BBQ Pork Bowl 150g</h3>
                     <p class="menu-item-thai">ข้าวบาบีคิวคอหมูย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Our perfectly portioned bowl with tender BBQ pork, fluffy rice, and fresh cucumber slices.</p>
+                    <p class="menu-item-desc">Perfectly portioned bowl with tender BBQ pork, fluffy rice, and fresh cucumber.</p>
                     <div class="menu-item-price">
                         <span class="price-baht">฿239</span>
                         <span class="price-usd">~$6.85</span>
@@ -472,17 +671,18 @@
                 </div>
             </div>
             
-            <!-- Juicy BBQ Pork 200g (no rice) -->
-            <div class="menu-item" onclick="addToOrder(this)">
+            <!-- Juicy BBQ Pork 200g -->
+            <div class="menu-item" onclick="openModal(2)">
                 <div class="image-wrapper">
                     <span class="item-badge">Popular</span>
                     <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
                     <img src="images/dish5.jpg" alt="Juicy BBQ Pork 200g">
+                    <span class="tap-hint">Tap for more 📸</span>
                 </div>
                 <div class="menu-item-content">
                     <h3 class="menu-item-name">Juicy BBQ Pork 200g</h3>
                     <p class="menu-item-thai">บาบีคิวคอหมูย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Pure pork perfection! 200g of our signature BBQ pork, no rice - for the true meat lovers.</p>
+                    <p class="menu-item-desc">Pure pork perfection! 200g of signature BBQ pork, no rice - for true meat lovers.</p>
                     <div class="menu-item-price">
                         <span class="price-baht">฿269</span>
                         <span class="price-usd">~$7.70</span>
@@ -490,16 +690,17 @@
                 </div>
             </div>
             
-            <!-- Juicy BBQ Pork 150g (no rice) -->
-            <div class="menu-item" onclick="addToOrder(this)">
+            <!-- Juicy BBQ Pork 150g -->
+            <div class="menu-item" onclick="openModal(3)">
                 <div class="image-wrapper">
                     <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
                     <img src="images/dish4.jpg" alt="Juicy BBQ Pork 150g">
+                    <span class="tap-hint">Tap for more 📸</span>
                 </div>
                 <div class="menu-item-content">
                     <h3 class="menu-item-name">Juicy BBQ Pork 150g</h3>
                     <p class="menu-item-thai">บาบีคิวคอหมูย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">150g of tender, juicy pork with our signature sweet & savory glaze. Perfect for a light meal.</p>
+                    <p class="menu-item-desc">150g of tender, juicy pork with our signature sweet & savory glaze.</p>
                     <div class="menu-item-price">
                         <span class="price-baht">฿229</span>
                         <span class="price-usd">~$6.55</span>
@@ -507,38 +708,40 @@
                 </div>
             </div>
             
-            <!-- Double serving / Combo style shots -->
-            <div class="menu-item" onclick="addToOrder(this)">
-                <div class="image-wrapper">
-                    <span class="item-badge">Best Value</span>
-                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
-                    <img src="images/dish1.jpg" alt="Pinky's Box for 2">
-                </div>
-                <div class="menu-item-content">
-                    <h3 class="menu-item-name">Pinky's Box for 2</h3>
-                    <p class="menu-item-thai">เซ็ทคู่สุดคุ้ม</p>
-                    <p class="menu-item-desc">Share the love! Two boxes of our signature BBQ pork bowls - perfect for couples & friends.</p>
-                    <div class="menu-item-price">
-                        <span class="price-baht">฿459</span>
-                        <span class="price-usd">~$13.15</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Garden style -->
-            <div class="menu-item" onclick="addToOrder(this)">
+            <!-- Garden Grill -->
+            <div class="menu-item" onclick="openModal(4)">
                 <div class="image-wrapper">
                     <span class="item-badge">Fresh!</span>
                     <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
                     <img src="images/dish8.jpg" alt="Garden Grill Board">
+                    <span class="tap-hint">Tap for more 📸</span>
                 </div>
                 <div class="menu-item-content">
                     <h3 class="menu-item-name">Garden Grill Board</h3>
                     <p class="menu-item-thai">หมูย่างสไตล์สวน</p>
-                    <p class="menu-item-desc">Our BBQ pork served rustic-style on a wooden board with rice and fresh cucumber. Instagram-ready!</p>
+                    <p class="menu-item-desc">BBQ pork served rustic-style on wooden board with rice and fresh cucumber.</p>
                     <div class="menu-item-price">
                         <span class="price-baht">฿249</span>
                         <span class="price-usd">~$7.15</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Box for 2 -->
+            <div class="menu-item" onclick="openModal(5)">
+                <div class="image-wrapper">
+                    <span class="item-badge">Best Value</span>
+                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
+                    <img src="images/dish1.jpg" alt="Pinky's Box for 2">
+                    <span class="tap-hint">Tap for more 📸</span>
+                </div>
+                <div class="menu-item-content">
+                    <h3 class="menu-item-name">Pinky's Box for 2</h3>
+                    <p class="menu-item-thai">เซ็ทคู่สุดคุ้ม</p>
+                    <p class="menu-item-desc">Share the love! Two boxes of signature BBQ pork bowls.</p>
+                    <div class="menu-item-price">
+                        <span class="price-baht">฿459</span>
+                        <span class="price-usd">~$13.15</span>
                     </div>
                 </div>
             </div>
@@ -547,40 +750,36 @@
         <h2 class="section-title">🍗 Chicken (Coming Soon!) 🍗</h2>
         
         <div class="menu-grid">
-            <!-- Chicken Thigh -->
-            <div class="menu-item" style="opacity: 0.5; position: relative;">
+            <div class="menu-item unavailable">
                 <div class="image-wrapper">
-                    <button class="heart-btn">🤍</button>
-                    <img src="images/dish6.jpg" alt="Juicy BBQ Chicken Thigh">
+                    <img src="images/dish6.jpg" alt="Chicken Thigh">
                 </div>
                 <div class="menu-item-content">
                     <h3 class="menu-item-name">Juicy BBQ Chicken Thigh</h3>
                     <p class="menu-item-thai">สะโพกไก่ย่างบาบีคิวนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Tender chicken thigh with our signature BBQ glaze. Coming soon to satisfy your cravings!</p>
+                    <p class="menu-item-desc">Tender chicken thigh with our signature BBQ glaze.</p>
                     <div class="menu-item-price">
                         <span class="price-baht">฿189</span>
                         <span class="price-usd">~$5.40</span>
                     </div>
                 </div>
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--pink-dark); color: white; padding: 10px 20px; border-radius: 20px; font-weight: 700;">Coming Soon 💕</div>
+                <div class="coming-soon-badge">Coming Soon 💕</div>
             </div>
             
-            <!-- Chicken Thigh Bowl -->
-            <div class="menu-item" style="opacity: 0.5; position: relative;">
+            <div class="menu-item unavailable">
                 <div class="image-wrapper">
-                    <button class="heart-btn">🤍</button>
-                    <img src="images/dish7.jpg" alt="Juicy BBQ Chicken Thigh Bowl">
+                    <img src="images/dish7.jpg" alt="Chicken Bowl">
                 </div>
                 <div class="menu-item-content">
-                    <h3 class="menu-item-name">Juicy BBQ Chicken Thigh Bowl</h3>
+                    <h3 class="menu-item-name">Juicy BBQ Chicken Bowl</h3>
                     <p class="menu-item-thai">ข้าวบาบีคิวสะโพกไก่ย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Full meal with BBQ chicken thigh, jasmine rice, and fresh veggies. Worth the wait!</p>
+                    <p class="menu-item-desc">Full meal with BBQ chicken, jasmine rice, and veggies.</p>
                     <div class="menu-item-price">
                         <span class="price-baht">฿199</span>
                         <span class="price-usd">~$5.70</span>
                     </div>
                 </div>
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--pink-dark); color: white; padding: 10px 20px; border-radius: 20px; font-weight: 700;">Coming Soon 💕</div>
+                <div class="coming-soon-badge">Coming Soon 💕</div>
             </div>
         </div>
         
@@ -588,17 +787,17 @@
         <div class="drinks-section">
             <h3 class="drinks-title">🥤 Drinks 🥤</h3>
             <div class="drinks-grid">
-                <div class="drink-item" onclick="addDrink('Coke Zero')">
+                <div class="drink-item" onclick="showToast('Coke Zero added! 🥤')">
                     <div class="drink-emoji">🥤</div>
                     <div class="drink-name">Coke Zero</div>
-                    <div class="drink-thai" style="font-size: 11px; color: var(--pink-deep);">โค้กซีโร่ไม่มีน้ำตาล</div>
-                    <div class="drink-price">฿40 / ~$1.15</div>
+                    <div class="drink-thai">โค้กซีโร่ไม่มีน้ำตาล</div>
+                    <div class="drink-price">฿40</div>
                 </div>
-                <div class="drink-item" onclick="addDrink('Aura Water')">
+                <div class="drink-item" onclick="showToast('Aura Water added! 💧')">
                     <div class="drink-emoji">💧</div>
                     <div class="drink-name">Aura Water 500ml</div>
-                    <div class="drink-thai" style="font-size: 11px; color: var(--pink-deep);">น้ำออร่า</div>
-                    <div class="drink-price">฿30 / ~$0.85</div>
+                    <div class="drink-thai">น้ำออร่า</div>
+                    <div class="drink-price">฿30</div>
                 </div>
             </div>
         </div>
@@ -611,43 +810,152 @@
         <div class="social-icons">
             <a href="#" class="social-icon">📸</a>
             <a href="#" class="social-icon">📍</a>
-            <a href="#" class="social-icon">🛵</a>
+            <a href="#" class="social-icon" style="background: var(--line-green);">💬</a>
         </div>
     </footer>
+    
+    <!-- Floating LINE Order Button -->
+    <a href="https://line.me/R/ti/p/@pinkys" class="floating-order" target="_blank">
+        <svg class="line-icon" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        Order via LINE 🐷
+    </a>
+    
+    <!-- Photo Modal -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-gallery">
+                <img class="modal-main-img" id="modal-main-img" src="" alt="">
+                <div class="modal-thumbnails" id="modal-thumbs"></div>
+            </div>
+            <div class="modal-info">
+                <h2 class="modal-name" id="modal-name"></h2>
+                <p class="modal-thai" id="modal-thai"></p>
+                <p class="modal-desc" id="modal-desc"></p>
+                <p class="modal-price" id="modal-price"></p>
+                <button class="order-btn" onclick="orderViaLine()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+                    Order via LINE
+                </button>
+            </div>
+        </div>
+    </div>
     
     <div class="toast" id="toast"></div>
     
     <script>
-        // Bubbles
+        // Menu Data with multiple photos
+        const menuItems = [
+            {
+                name: "Juicy BBQ Pork Bowl 200g",
+                thai: "ข้าวบาบีคิวคอหมูย่างนุ่มฉ่ำ",
+                desc: "Rich, tender pork jowl with beautiful marbling, marinated 24 hours in our secret sauce. Served with fluffy jasmine rice and fresh cucumber slices. Our most popular choice!",
+                price: "฿279",
+                images: ["images/dish2.jpg", "images/dish3.jpg", "images/dish6.jpg", "images/dish7.jpg"]
+            },
+            {
+                name: "Juicy BBQ Pork Bowl 150g",
+                thai: "ข้าวบาบีคิวคอหมูย่างนุ่มฉ่ำ",
+                desc: "Our perfectly portioned bowl featuring tender BBQ pork with that beautiful caramelized glaze, served with fluffy jasmine rice and cool cucumber slices.",
+                price: "฿239",
+                images: ["images/dish3.jpg", "images/dish2.jpg", "images/dish8.jpg"]
+            },
+            {
+                name: "Juicy BBQ Pork 200g",
+                thai: "บาบีคิวคอหมูย่างนุ่มฉ่ำ",
+                desc: "Pure pork perfection! 200g of our signature BBQ pork without rice - for the true meat lovers who want to savor every juicy bite.",
+                price: "฿269",
+                images: ["images/dish5.jpg", "images/dish4.jpg", "images/dish6.jpg"]
+            },
+            {
+                name: "Juicy BBQ Pork 150g",
+                thai: "บาบีคิวคอหมูย่างนุ่มฉ่ำ",
+                desc: "150g of tender, juicy pork with our signature sweet & savory glaze. Perfect portion for a satisfying light meal.",
+                price: "฿229",
+                images: ["images/dish4.jpg", "images/dish5.jpg"]
+            },
+            {
+                name: "Garden Grill Board",
+                thai: "หมูย่างสไตล์สวน",
+                desc: "Our BBQ pork served rustic-style on a beautiful wooden board with fluffy rice and fresh cucumber. Perfect for photos, even better to eat!",
+                price: "฿249",
+                images: ["images/dish8.jpg", "images/dish2.jpg", "images/dish3.jpg"]
+            },
+            {
+                name: "Pinky's Box for 2",
+                thai: "เซ็ทคู่สุดคุ้ม",
+                desc: "Share the love! Two boxes of our signature BBQ pork bowls - perfect for couples, friends, or when you just can't decide. Best value on the menu!",
+                price: "฿459",
+                images: ["images/dish1.jpg", "images/dish2.jpg", "images/dish3.jpg"]
+            }
+        ];
+        
+        let currentItem = null;
+        
+        // Create bubbles
         function createBubbles() {
             const container = document.getElementById('bubbles');
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 12; i++) {
                 const bubble = document.createElement('div');
                 bubble.className = 'bubble';
-                const size = Math.random() * 50 + 20;
+                const size = Math.random() * 45 + 15;
                 bubble.style.width = size + 'px';
                 bubble.style.height = size + 'px';
                 bubble.style.left = Math.random() * 100 + '%';
-                bubble.style.animationDuration = (Math.random() * 12 + 10) + 's';
+                bubble.style.animationDuration = (Math.random() * 10 + 12) + 's';
                 bubble.style.animationDelay = (Math.random() * 8) + 's';
                 container.appendChild(bubble);
             }
         }
         createBubbles();
         
+        // Modal functions
+        function openModal(index) {
+            currentItem = menuItems[index];
+            document.getElementById('modal-name').textContent = currentItem.name;
+            document.getElementById('modal-thai').textContent = currentItem.thai;
+            document.getElementById('modal-desc').textContent = currentItem.desc;
+            document.getElementById('modal-price').innerHTML = currentItem.price + ' <span>(~$' + (parseInt(currentItem.price.replace('฿','')) / 35).toFixed(2) + ')</span>';
+            document.getElementById('modal-main-img').src = currentItem.images[0];
+            
+            // Build thumbnails
+            const thumbsContainer = document.getElementById('modal-thumbs');
+            thumbsContainer.innerHTML = currentItem.images.map((img, i) => 
+                `<img src="${img}" class="modal-thumb ${i === 0 ? 'active' : ''}" onclick="setMainImage('${img}', this)">`
+            ).join('');
+            
+            document.getElementById('modal').classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function setMainImage(src, thumb) {
+            document.getElementById('modal-main-img').src = src;
+            document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        }
+        
+        function closeModal(e) {
+            if (!e || e.target.classList.contains('modal-overlay')) {
+                document.getElementById('modal').classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        function orderViaLine() {
+            const msg = encodeURIComponent(`Hi! I'd like to order: ${currentItem.name} (${currentItem.price}) 🐷`);
+            window.open(`https://line.me/R/ti/p/@pinkys?text=${msg}`, '_blank');
+            closeModal();
+            createConfetti();
+            showToast('Opening LINE... 💕');
+        }
+        
         function toggleHeart(e, btn) {
             e.stopPropagation();
             btn.classList.toggle('liked');
             btn.textContent = btn.classList.contains('liked') ? '💖' : '🤍';
-        }
-        
-        function addToOrder(item) {
-            const name = item.querySelector('.menu-item-name').textContent;
-            showToast(`${name} added! 🐷💕`);
-        }
-        
-        function addDrink(name) {
-            showToast(`${name} added! 🥤`);
+            if (btn.classList.contains('liked')) {
+                createConfetti();
+            }
         }
         
         function showToast(msg) {
@@ -656,6 +964,38 @@
             toast.classList.add('visible');
             setTimeout(() => toast.classList.remove('visible'), 2500);
         }
+        
+        // Confetti effect
+        function createConfetti() {
+            const colors = ['#FF69B4', '#FFB6C1', '#FF1493', '#FFD700', '#FFF'];
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.cssText = `
+                    left: ${Math.random() * 100}vw;
+                    top: -10px;
+                    width: ${Math.random() * 10 + 5}px;
+                    height: ${Math.random() * 10 + 5}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                    animation: confetti-fall ${Math.random() * 2 + 2}s linear forwards;
+                `;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+        
+        // Add confetti animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes confetti-fall {
+                to {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
