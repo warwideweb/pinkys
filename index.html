@@ -25,6 +25,69 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(160deg, var(--pink-100) 0%, var(--cream) 50%, var(--pink-50) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loading-pig {
+            font-size: 80px;
+            animation: loading-bounce 0.6s ease-in-out infinite;
+        }
+        
+        @keyframes loading-bounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .loading-text {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--pink-500);
+            animation: loading-pulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes loading-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+            margin-left: 4px;
+        }
+        
+        .loading-dots span {
+            width: 6px;
+            height: 6px;
+            background: var(--pink-400);
+            border-radius: 50%;
+            animation: dot-bounce 1.2s ease-in-out infinite;
+        }
+        
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes dot-bounce {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
+        }
+        
         body {
             font-family: 'Nunito', sans-serif;
             background: linear-gradient(160deg, var(--pink-100) 0%, var(--cream) 40%, var(--pink-50) 100%);
@@ -94,17 +157,40 @@
             gap: 10px;
         }
         
-        .location-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        /* Split Location Bar */
+        .split-bar {
+            display: flex;
             background: var(--white);
-            padding: 8px 16px;
             border-radius: 50px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .split-left {
+            padding: 10px 18px;
             font-size: 13px;
             font-weight: 600;
             color: var(--brown);
-            box-shadow: var(--shadow-soft);
+            border-right: 1px solid var(--pink-100);
+        }
+        
+        .split-right {
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--pink-500);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .split-right:hover {
+            background: var(--pink-50);
+        }
+        
+        .info-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
         
         .rating-badge {
@@ -112,12 +198,35 @@
             align-items: center;
             gap: 4px;
             background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 50px;
             font-size: 13px;
             font-weight: 700;
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+        }
+        
+        .hours-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--white);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--brown);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .hours-badge.open {
+            background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+            color: white;
+        }
+        
+        .hours-badge.closed {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
         }
         
         /* Main */
@@ -399,7 +508,7 @@
             margin-top: 4px;
         }
         
-        /* Order Buttons - Split Button Design */
+        /* Order Buttons - Separate */
         .order-buttons {
             position: fixed;
             bottom: 20px;
@@ -407,50 +516,71 @@
             transform: translateX(-50%);
             z-index: 100;
             display: flex;
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            overflow: hidden;
+            gap: 12px;
         }
         
         .order-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 16px 28px;
+            padding: 14px 24px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 15px;
+            border-radius: 50px;
             color: white;
             transition: all 0.3s ease;
-            min-width: 130px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
         }
         
         .order-btn.grab {
             background: linear-gradient(135deg, #00B14F 0%, #00913F 100%);
-            border-radius: 20px 0 0 20px;
         }
         
         .order-btn.line {
             background: linear-gradient(135deg, #06C755 0%, #00B548 100%);
-            border-radius: 0 20px 20px 0;
         }
         
         .order-btn:hover {
-            filter: brightness(1.1);
-            transform: scale(1.02);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
         }
         
         .order-btn:active {
-            transform: scale(0.98);
+            transform: scale(0.95);
         }
         
-        .order-btn .btn-logo {
-            height: 20px;
+        .order-btn .btn-logo-grab {
+            height: 22px;
             width: auto;
             filter: brightness(0) invert(1);
+        }
+        
+        .order-btn .btn-logo-line {
+            height: 22px;
+            width: 22px;
+        }
+        
+        /* Peeking Pig */
+        .peeking-pig {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            font-size: 50px;
+            z-index: 50;
+            animation: pig-peek 3s ease-in-out infinite;
+            cursor: pointer;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
+            transition: transform 0.3s;
+        }
+        
+        .peeking-pig:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        @keyframes pig-peek {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            25% { transform: translateY(-10px) rotate(0deg); }
+            50% { transform: translateY(0) rotate(5deg); }
+            75% { transform: translateY(-5px) rotate(0deg); }
         }
         
         /* Modal */
@@ -687,48 +817,29 @@
             to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
         
-        /* Location Badge */
-        .location-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, var(--pink-400) 0%, var(--pink-500) 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
-            animation: pulse-glow 2s ease-in-out infinite;
-            cursor: pointer;
-        }
-        
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3); }
-            50% { box-shadow: 0 4px 25px rgba(255, 20, 147, 0.5); }
-        }
-        
-        .location-status .icon {
-            font-size: 14px;
-        }
-        
         @media (max-width: 600px) {
             .menu-grid { grid-template-columns: 1fr; }
-            .order-buttons { 
-                width: calc(100% - 40px);
-                max-width: 320px;
-            }
-            .order-btn { 
-                flex: 1;
-                padding: 14px 20px; 
-                font-size: 14px;
-                min-width: auto;
-            }
+            .split-bar { flex-direction: column; border-radius: 16px; }
+            .split-left { border-right: none; border-bottom: 1px solid var(--pink-100); text-align: center; }
+            .split-right { text-align: center; }
+            .info-row { justify-content: center; }
+            .peeking-pig { font-size: 40px; bottom: 85px; right: 15px; }
+            .order-btn { padding: 12px 20px; }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-pig">🐷</div>
+        <div class="loading-text">
+            Getting yummy
+            <span class="loading-dots">
+                <span></span><span></span><span></span>
+            </span>
+        </div>
+    </div>
+    
     <div class="bubbles" id="bubbles"></div>
     
     <header>
@@ -736,11 +847,16 @@
             <img src="images/logo.png" alt="Pinky's" class="logo-img">
         </div>
         <div class="header-info">
-            <div class="location-badge">📍 Sukhumvit 36, Bangkok</div>
-            <div class="rating-badge">⭐ 5.0</div>
-            <div class="location-status" id="location-status" onclick="checkLocation()">
-                <span class="icon">📍</span>
-                <span id="distance-text">Tap to check distance</span>
+            <!-- Split Location Bar -->
+            <div class="split-bar">
+                <div class="split-left">📍 Sukhumvit 36</div>
+                <div class="split-right" id="location-status" onclick="checkLocation()">
+                    <span id="distance-text">📍 Check Distance</span>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="rating-badge">⭐ 5.0</div>
+                <div class="hours-badge" id="hours-badge">🕐 Loading...</div>
             </div>
         </div>
     </header>
@@ -797,15 +913,18 @@
         <p class="footer-sub">Sukhumvit 36 • Open Daily</p>
     </footer>
     
-    <!-- Order Buttons -->
+    <!-- Order Buttons - Separate -->
     <div class="order-buttons">
         <a href="https://r.grab.com/g/6-20260203_195037_b73c6130ee314830a81e3ffadd43379e_MEXMPS-3-C7XETUNXVYL3V2" class="order-btn grab" target="_blank">
-            <img src="images/grab-icon.png" alt="Grab" class="btn-logo"> Order
+            <img src="images/grab-icon.png" alt="Grab" class="btn-logo-grab">
         </a>
         <a href="https://line.me/R/ti/p/@pinkys" class="order-btn line" target="_blank">
-            <img src="images/line-icon.png" alt="LINE" class="btn-logo"> Chat
+            <svg class="btn-logo-line" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
         </a>
     </div>
+    
+    <!-- Peeking Pig Mascot -->
+    <div class="peeking-pig" id="peeking-pig">🐷</div>
     
     <!-- Modal -->
     <div class="modal" id="modal" onclick="closeModal(event)">
@@ -1121,9 +1240,41 @@
             return R * c;
         }
         
+        // Check operating hours (11am-11pm)
+        function checkHours() {
+            const badge = document.getElementById('hours-badge');
+            const now = new Date();
+            const hour = now.getHours();
+            
+            if (hour >= 11 && hour < 23) {
+                badge.textContent = '🟢 Open Now • 11am-11pm';
+                badge.classList.add('open');
+                badge.classList.remove('closed');
+            } else {
+                badge.textContent = '🔴 Closed • Opens 11am';
+                badge.classList.add('closed');
+                badge.classList.remove('open');
+            }
+        }
+        
+        // Peeking pig click
+        document.getElementById('peeking-pig').addEventListener('click', () => {
+            confetti();
+            toast('Oink oink! 🐷💕');
+        });
+        
+        // Hide loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 800);
+        });
+        
         // Init
         createBubbles();
         renderMenu();
+        checkHours();
+        setInterval(checkHours, 60000); // Update every minute
     </script>
 </body>
 </html>
