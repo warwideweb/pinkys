@@ -5,35 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🐷 PINKY'S - Juicy BBQ Pork | Sukhumvit 36</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink-light: #FFE4EC;
-            --pink-medium: #FFB6C1;
-            --pink-main: #FF69B4;
-            --pink-dark: #FF1493;
-            --pink-deep: #DB7093;
-            --cream: #FFF8F0;
-            --text: #5D4037;
+            --pink-50: #FFF0F5;
+            --pink-100: #FFE4EC;
+            --pink-200: #FFB6C1;
+            --pink-300: #FF91A4;
+            --pink-400: #FF69B4;
+            --pink-500: #FF1493;
+            --pink-600: #DB1476;
+            --cream: #FFFAF5;
+            --brown: #5D4037;
+            --brown-light: #8D6E63;
             --white: #ffffff;
-            --line-green: #06C755;
+            --shadow-soft: 0 4px 20px rgba(255, 105, 180, 0.15);
+            --shadow-hover: 0 12px 40px rgba(255, 105, 180, 0.25);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, var(--pink-light) 0%, var(--cream) 50%, var(--pink-light) 100%);
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(160deg, var(--pink-100) 0%, var(--cream) 40%, var(--pink-50) 100%);
             min-height: 100vh;
-            color: var(--text);
+            color: var(--brown);
             overflow-x: hidden;
         }
         
-        /* Floating bubbles */
+        /* Floating Bubbles */
         .bubbles {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            inset: 0;
             pointer-events: none;
             z-index: 0;
             overflow: hidden;
@@ -41,16 +44,17 @@
         
         .bubble {
             position: absolute;
-            bottom: -100px;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 182, 193, 0.8), rgba(255, 105, 180, 0.4));
+            bottom: -80px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 182, 193, 0.7), rgba(255, 105, 180, 0.3));
             border-radius: 50%;
             animation: float-up linear infinite;
-            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.4);
         }
         
         @keyframes float-up {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.6; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(360deg) scale(0.8); opacity: 0; }
         }
         
         /* Header */
@@ -58,448 +62,339 @@
             position: relative;
             z-index: 10;
             text-align: center;
-            padding: 30px 20px 20px;
-            background: linear-gradient(180deg, var(--pink-medium) 0%, transparent 100%);
+            padding: 40px 20px 30px;
         }
         
         .logo {
-            animation: bounce-title 3s ease-in-out infinite;
+            animation: gentle-float 4s ease-in-out infinite;
         }
         
         .logo-img {
             max-width: clamp(200px, 55vw, 350px);
             height: auto;
-            filter: drop-shadow(0 8px 24px rgba(255, 105, 180, 0.5));
+            filter: drop-shadow(0 10px 30px rgba(219, 20, 118, 0.3));
         }
         
-        @keyframes bounce-title {
+        @keyframes gentle-float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-12px); }
         }
         
-        .location {
-            margin-top: 10px;
-            font-size: 14px;
-            color: var(--pink-deep);
-            font-weight: 600;
+        .header-info {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
         
-        .rating {
+        .location-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            margin-top: 8px;
             background: var(--white);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
+            color: var(--brown);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
         }
         
         /* Main */
         main {
             position: relative;
             z-index: 10;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 20px;
-            padding-bottom: 100px;
+            padding: 10px 16px 120px;
         }
         
-        /* Section Title */
-        .section-title {
+        /* Section */
+        .section-header {
             text-align: center;
-            font-family: 'Fredoka', sans-serif;
-            font-size: clamp(22px, 5vw, 32px);
-            color: var(--pink-dark);
-            margin: 25px 0 18px;
+            margin: 30px 0 20px;
         }
         
-        /* Menu Grid */
+        .section-title {
+            font-size: clamp(22px, 5vw, 30px);
+            font-weight: 800;
+            color: var(--pink-500);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title .sparkle {
+            font-size: 0.8em;
+            animation: sparkle-spin 2s ease-in-out infinite;
+        }
+        
+        @keyframes sparkle-spin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+        }
+        
+        /* Menu Grid - Cute Cards */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 18px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
         
-        .menu-item {
+        .menu-card {
             background: var(--white);
-            border-radius: 18px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 6px 24px rgba(255, 105, 180, 0.12);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            border: 3px solid transparent;
             position: relative;
         }
         
-        .menu-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--pink-main);
-            box-shadow: 0 12px 36px rgba(255, 105, 180, 0.2);
+        .menu-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-hover);
         }
         
-        .menu-item:active {
+        .menu-card:active {
             transform: scale(0.98);
         }
         
-        .image-wrapper {
+        .card-image {
             position: relative;
             overflow: hidden;
+            height: 180px;
         }
         
-        .menu-item img {
+        .card-image img {
             width: 100%;
-            height: 170px;
+            height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease;
         }
         
-        .menu-item:hover img {
-            transform: scale(1.06);
+        .menu-card:hover .card-image img {
+            transform: scale(1.1);
         }
         
-        .item-badge {
+        .card-badge {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--pink-dark);
-            color: var(--white);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 10px;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, var(--pink-400) 0%, var(--pink-500) 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(255, 20, 147, 0.4);
         }
         
-        .tap-hint {
+        .card-heart {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.6);
+            top: 12px;
+            right: 12px;
+            width: 38px;
+            height: 38px;
+            background: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-heart:hover {
+            transform: scale(1.2);
+        }
+        
+        .card-heart.liked {
+            background: var(--pink-400);
+            animation: heart-burst 0.4s ease;
+        }
+        
+        @keyframes heart-burst {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+        
+        .card-tap-hint {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
             color: white;
-            padding: 4px 8px;
-            border-radius: 8px;
-            font-size: 10px;
+            padding: 30px 12px 10px;
+            font-size: 11px;
+            text-align: center;
             opacity: 0;
             transition: opacity 0.3s;
         }
         
-        .menu-item:hover .tap-hint {
+        .menu-card:hover .card-tap-hint {
             opacity: 1;
         }
         
-        .heart-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 34px;
-            height: 34px;
-            background: var(--white);
-            border: none;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            z-index: 5;
+        .card-content {
+            padding: 16px;
         }
         
-        .heart-btn:hover, .heart-btn.liked {
-            transform: scale(1.15);
-            background: var(--pink-main);
+        .card-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--brown);
+            margin-bottom: 4px;
+            line-height: 1.3;
         }
         
-        .menu-item-content {
-            padding: 14px;
-        }
-        
-        .menu-item-name {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 16px;
+        .card-thai {
+            font-size: 12px;
+            color: var(--pink-400);
+            margin-bottom: 8px;
             font-weight: 600;
-            color: var(--pink-dark);
-            margin-bottom: 2px;
         }
         
-        .menu-item-thai {
-            font-size: 12px;
-            color: var(--pink-deep);
-            margin-bottom: 6px;
-        }
-        
-        .menu-item-desc {
-            font-size: 12px;
-            color: var(--text);
-            line-height: 1.4;
-            margin-bottom: 10px;
+        .card-desc {
+            font-size: 13px;
+            color: var(--brown-light);
+            line-height: 1.5;
+            margin-bottom: 14px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
         
-        .menu-item-price {
+        .card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 10px;
-            border-top: 2px dashed var(--pink-light);
+            padding-top: 12px;
+            border-top: 2px dashed var(--pink-100);
         }
         
-        .price-baht {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--pink-dark);
+        .card-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--pink-500);
         }
         
-        .price-usd {
+        .card-price-usd {
             font-size: 11px;
-            color: var(--pink-deep);
-            background: var(--pink-light);
-            padding: 3px 8px;
+            color: var(--brown-light);
+            font-weight: 600;
+            background: var(--pink-50);
+            padding: 4px 8px;
             border-radius: 8px;
         }
         
-        /* Unavailable items */
-        .menu-item.unavailable {
-            opacity: 0.5;
+        /* Unavailable Card */
+        .menu-card.unavailable {
+            opacity: 0.6;
+            pointer-events: none;
         }
         
-        .coming-soon-badge {
+        .unavailable-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--pink-dark);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 16px;
-            font-weight: 700;
-            font-size: 12px;
-            z-index: 10;
-            white-space: nowrap;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
         }
         
-        /* Drinks */
+        .unavailable-badge {
+            background: var(--pink-400);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+        }
+        
+        /* Drinks Section */
         .drinks-section {
             background: var(--white);
-            border-radius: 18px;
-            padding: 20px;
-            margin: 25px 0;
-            box-shadow: 0 6px 24px rgba(255, 105, 180, 0.1);
-        }
-        
-        .drinks-title {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 22px;
-            color: var(--pink-dark);
-            text-align: center;
-            margin-bottom: 14px;
+            border-radius: 24px;
+            padding: 24px;
+            margin: 30px 0;
+            box-shadow: var(--shadow-soft);
         }
         
         .drinks-grid {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
+            margin-top: 16px;
         }
         
-        .drink-item {
+        .drink-card {
             text-align: center;
-            padding: 14px 20px;
-            background: var(--pink-light);
-            border-radius: 14px;
-            transition: transform 0.3s ease;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--pink-50) 0%, var(--pink-100) 100%);
+            border-radius: 20px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 130px;
         }
         
-        .drink-item:hover {
-            transform: scale(1.05);
+        .drink-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.2);
         }
         
         .drink-emoji {
             font-size: 36px;
             margin-bottom: 6px;
+            display: block;
         }
         
         .drink-name {
             font-weight: 700;
-            color: var(--pink-dark);
+            color: var(--brown);
             font-size: 13px;
         }
         
         .drink-thai {
             font-size: 10px;
-            color: var(--pink-deep);
+            color: var(--pink-400);
             margin: 2px 0;
         }
         
         .drink-price {
-            font-size: 12px;
-            color: var(--pink-deep);
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--pink-500);
+            margin-top: 4px;
         }
         
-        /* Photo Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .modal-overlay.visible {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: var(--white);
-            border-radius: 20px;
-            max-width: 500px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            animation: modal-pop 0.3s ease;
-        }
-        
-        @keyframes modal-pop {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 36px;
-            height: 36px;
-            background: var(--pink-dark);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 10;
-        }
-        
-        .modal-gallery {
-            position: relative;
-        }
-        
-        .modal-main-img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 20px 20px 0 0;
-        }
-        
-        .modal-thumbnails {
-            display: flex;
-            gap: 8px;
-            padding: 12px;
-            overflow-x: auto;
-            background: var(--pink-light);
-        }
-        
-        .modal-thumb {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-        
-        .modal-thumb:hover, .modal-thumb.active {
-            border-color: var(--pink-dark);
-            transform: scale(1.05);
-        }
-        
-        .modal-info {
-            padding: 20px;
-        }
-        
-        .modal-name {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 24px;
-            color: var(--pink-dark);
-            margin-bottom: 4px;
-        }
-        
-        .modal-thai {
-            color: var(--pink-deep);
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-        
-        .modal-desc {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text);
-            margin-bottom: 16px;
-        }
-        
-        .modal-price {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 28px;
-            color: var(--pink-dark);
-            margin-bottom: 16px;
-        }
-        
-        .modal-price span {
-            font-size: 14px;
-            color: var(--pink-deep);
-            font-family: 'Quicksand', sans-serif;
-        }
-        
-        .modal-order-btns {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .order-btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 14px;
-            font-weight: 700;
-            font-family: inherit;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-        
-        .order-btn.grab {
-            background: linear-gradient(135deg, #00B14F 0%, #00873C 100%);
-        }
-        
-        .order-btn.line {
-            background: linear-gradient(135deg, #06C755 0%, #04A847 100%);
-        }
-        
-        .order-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Floating Order Buttons */
-        .floating-buttons {
+        /* Order Buttons */
+        .order-buttons {
             position: fixed;
             bottom: 20px;
             left: 50%;
@@ -507,152 +402,274 @@
             display: flex;
             gap: 12px;
             z-index: 100;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
         }
         
-        .floating-btn {
+        .order-btn {
             display: flex;
-            flex-direction: column;
             align-items: center;
+            gap: 8px;
             padding: 12px 20px;
-            border-radius: 20px;
+            border-radius: 50px;
             text-decoration: none;
-            font-family: 'Fredoka', sans-serif;
-            font-weight: 600;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
             transition: all 0.3s ease;
-            animation: float-btns 3s ease-in-out infinite;
         }
         
-        .floating-btn:nth-child(2) {
-            animation-delay: 0.5s;
+        .order-btn img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
         }
         
-        @keyframes float-btns {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+        .order-btn.grab {
+            background: linear-gradient(135deg, #00B14F 0%, #00913F 100%);
         }
         
-        .grab-btn {
-            background: linear-gradient(135deg, #00B14F 0%, #00873C 100%);
+        .order-btn.line {
+            background: linear-gradient(135deg, #06C755 0%, #00B548 100%);
+        }
+        
+        .order-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.open {
+            display: flex;
+        }
+        
+        .modal-card {
+            background: var(--white);
+            border-radius: 28px;
+            max-width: 420px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: modal-appear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes modal-appear {
+            from { transform: scale(0.8) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
+        .modal-image {
+            position: relative;
+            height: 250px;
+        }
+        
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+        
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+        
+        .modal-thumbs {
+            display: flex;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--pink-50);
+            overflow-x: auto;
+        }
+        
+        .modal-thumb {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        
+        .modal-thumb:hover, .modal-thumb.active {
+            border-color: var(--pink-400);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--brown);
+            margin-bottom: 4px;
+        }
+        
+        .modal-thai {
+            font-size: 13px;
+            color: var(--pink-400);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .modal-desc {
+            font-size: 14px;
+            color: var(--brown-light);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .modal-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--pink-500);
+            margin-bottom: 16px;
+        }
+        
+        .modal-price span {
+            font-size: 14px;
+            color: var(--brown-light);
+            font-weight: 600;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .modal-order-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            border: none;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: inherit;
             color: white;
+            cursor: pointer;
+            transition: all 0.2s;
         }
         
-        .grab-btn:hover {
-            transform: scale(1.08) translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 177, 79, 0.4);
+        .modal-order-btn img {
+            width: 20px;
+            height: 20px;
         }
         
-        .line-btn {
-            background: linear-gradient(135deg, #06C755 0%, #04A847 100%);
-            color: white;
+        .modal-order-btn.grab {
+            background: linear-gradient(135deg, #00B14F 0%, #00913F 100%);
         }
         
-        .line-btn:hover {
-            transform: scale(1.08) translateY(-3px);
-            box-shadow: 0 10px 30px rgba(6, 199, 85, 0.4);
+        .modal-order-btn.line {
+            background: linear-gradient(135deg, #06C755 0%, #00B548 100%);
         }
         
-        .btn-icon {
-            font-size: 24px;
-            margin-bottom: 2px;
-        }
-        
-        .btn-text {
-            font-size: 12px;
-            letter-spacing: 0.5px;
+        .modal-order-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
         
         /* Footer */
         footer {
             text-align: center;
             padding: 30px 20px 100px;
-            background: linear-gradient(0deg, var(--pink-medium) 0%, transparent 100%);
             position: relative;
             z-index: 10;
         }
         
         .footer-logo {
-            max-width: 90px;
-            animation: footer-bounce 2s ease-in-out infinite;
-        }
-        
-        @keyframes footer-bounce {
-            0%, 100% { transform: translateY(0) rotate(-3deg); }
-            50% { transform: translateY(-8px) rotate(3deg); }
+            max-width: 80px;
+            animation: gentle-float 4s ease-in-out infinite;
         }
         
         .footer-text {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 15px;
-            color: var(--pink-dark);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--pink-500);
             margin-top: 10px;
         }
         
-        .footer-hours {
-            color: var(--pink-deep);
-            margin-top: 6px;
+        .footer-sub {
             font-size: 12px;
-        }
-        
-        .social-icons {
-            margin-top: 14px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .social-icon {
-            width: 38px;
-            height: 38px;
-            background: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            transform: translateY(-3px);
-            background: var(--pink-main);
+            color: var(--brown-light);
+            margin-top: 4px;
         }
         
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 90px;
+            bottom: 100px;
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--pink-dark);
-            color: var(--white);
+            transform: translateX(-50%) translateY(50px);
+            background: var(--pink-500);
+            color: white;
             padding: 12px 24px;
             border-radius: 50px;
-            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
             font-size: 14px;
-            box-shadow: 0 6px 24px rgba(255, 20, 147, 0.4);
             opacity: 0;
-            transition: all 0.4s ease;
-            z-index: 99;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 101;
+            box-shadow: 0 8px 30px rgba(255, 20, 147, 0.4);
         }
         
-        .toast.visible {
+        .toast.show {
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
         
         /* Confetti */
-        .confetti {
+        .confetti-piece {
             position: fixed;
             pointer-events: none;
             z-index: 1001;
+            animation: confetti-fall linear forwards;
+        }
+        
+        @keyframes confetti-fall {
+            to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
         
         @media (max-width: 600px) {
             .menu-grid { grid-template-columns: 1fr; }
-            .modal-content { margin: 10px; }
+            .order-buttons { padding: 10px 12px; gap: 8px; }
+            .order-btn { padding: 10px 14px; font-size: 12px; }
+            .order-btn span { display: none; }
         }
     </style>
 </head>
@@ -663,178 +680,52 @@
         <div class="logo">
             <img src="images/logo.png" alt="Pinky's" class="logo-img">
         </div>
-        <p class="location">📍 Sukhumvit 36, Bangkok</p>
-        <div class="rating">⭐ 5.0 <span style="color: #999;">(8)</span></div>
+        <div class="header-info">
+            <div class="location-badge">📍 Sukhumvit 36, Bangkok</div>
+            <div class="rating-badge">⭐ 5.0</div>
+        </div>
     </header>
     
     <main>
-        <h2 class="section-title">✨ Signature Bowls ✨</h2>
-        
-        <div class="menu-grid">
-            <!-- Juicy BBQ Pork Bowl 200g -->
-            <div class="menu-item" onclick="openModal(0)">
-                <div class="image-wrapper">
-                    <span class="item-badge">Most Liked</span>
-                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
-                    <img src="images/dish2.jpg" alt="Juicy BBQ Pork Bowl 200g">
-                    <span class="tap-hint">Tap for more 📸</span>
-                </div>
-                <div class="menu-item-content">
-                    <h3 class="menu-item-name">Juicy BBQ Pork Bowl 200g</h3>
-                    <p class="menu-item-thai">ข้าวบาบีคิวคอหมูย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Rich, tender pork jowl with beautiful marbling, marinated 24 hours in our secret sauce.</p>
-                    <div class="menu-item-price">
-                        <span class="price-baht">฿279</span>
-                        <span class="price-usd">~$8.00</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Juicy BBQ Pork Bowl 150g -->
-            <div class="menu-item" onclick="openModal(1)">
-                <div class="image-wrapper">
-                    <span class="item-badge">Most Liked</span>
-                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
-                    <img src="images/dish3.jpg" alt="Juicy BBQ Pork Bowl 150g">
-                    <span class="tap-hint">Tap for more 📸</span>
-                </div>
-                <div class="menu-item-content">
-                    <h3 class="menu-item-name">Juicy BBQ Pork Bowl 150g</h3>
-                    <p class="menu-item-thai">ข้าวบาบีคิวคอหมูย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Perfectly portioned bowl with tender BBQ pork, fluffy rice, and fresh cucumber.</p>
-                    <div class="menu-item-price">
-                        <span class="price-baht">฿239</span>
-                        <span class="price-usd">~$6.85</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Juicy BBQ Pork 200g -->
-            <div class="menu-item" onclick="openModal(2)">
-                <div class="image-wrapper">
-                    <span class="item-badge">Popular</span>
-                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
-                    <img src="images/dish5.jpg" alt="Juicy BBQ Pork 200g">
-                    <span class="tap-hint">Tap for more 📸</span>
-                </div>
-                <div class="menu-item-content">
-                    <h3 class="menu-item-name">Juicy BBQ Pork 200g</h3>
-                    <p class="menu-item-thai">บาบีคิวคอหมูย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Pure pork perfection! 200g of signature BBQ pork, no rice - for true meat lovers.</p>
-                    <div class="menu-item-price">
-                        <span class="price-baht">฿269</span>
-                        <span class="price-usd">~$7.70</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Juicy BBQ Pork 150g -->
-            <div class="menu-item" onclick="openModal(3)">
-                <div class="image-wrapper">
-                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
-                    <img src="images/dish4.jpg" alt="Juicy BBQ Pork 150g">
-                    <span class="tap-hint">Tap for more 📸</span>
-                </div>
-                <div class="menu-item-content">
-                    <h3 class="menu-item-name">Juicy BBQ Pork 150g</h3>
-                    <p class="menu-item-thai">บาบีคิวคอหมูย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">150g of tender, juicy pork with our signature sweet & savory glaze.</p>
-                    <div class="menu-item-price">
-                        <span class="price-baht">฿229</span>
-                        <span class="price-usd">~$6.55</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Garden Grill -->
-            <div class="menu-item" onclick="openModal(4)">
-                <div class="image-wrapper">
-                    <span class="item-badge">Fresh!</span>
-                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
-                    <img src="images/dish8.jpg" alt="Garden Grill Board">
-                    <span class="tap-hint">Tap for more 📸</span>
-                </div>
-                <div class="menu-item-content">
-                    <h3 class="menu-item-name">Garden Grill Board</h3>
-                    <p class="menu-item-thai">หมูย่างสไตล์สวน</p>
-                    <p class="menu-item-desc">BBQ pork served rustic-style on wooden board with rice and fresh cucumber.</p>
-                    <div class="menu-item-price">
-                        <span class="price-baht">฿249</span>
-                        <span class="price-usd">~$7.15</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Box for 2 -->
-            <div class="menu-item" onclick="openModal(5)">
-                <div class="image-wrapper">
-                    <span class="item-badge">Best Value</span>
-                    <button class="heart-btn" onclick="toggleHeart(event, this)">🤍</button>
-                    <img src="images/dish1.jpg" alt="Pinky's Box for 2">
-                    <span class="tap-hint">Tap for more 📸</span>
-                </div>
-                <div class="menu-item-content">
-                    <h3 class="menu-item-name">Pinky's Box for 2</h3>
-                    <p class="menu-item-thai">เซ็ทคู่สุดคุ้ม</p>
-                    <p class="menu-item-desc">Share the love! Two boxes of signature BBQ pork bowls.</p>
-                    <div class="menu-item-price">
-                        <span class="price-baht">฿459</span>
-                        <span class="price-usd">~$13.15</span>
-                    </div>
-                </div>
-            </div>
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="sparkle">✨</span>
+                Signature Bowls
+                <span class="sparkle">✨</span>
+            </h2>
         </div>
         
-        <h2 class="section-title">🍗 Chicken (Coming Soon!) 🍗</h2>
+        <div class="menu-grid" id="menu-grid"></div>
         
-        <div class="menu-grid">
-            <div class="menu-item unavailable">
-                <div class="image-wrapper">
-                    <img src="images/dish6.jpg" alt="Chicken Thigh">
-                </div>
-                <div class="menu-item-content">
-                    <h3 class="menu-item-name">Juicy BBQ Chicken Thigh</h3>
-                    <p class="menu-item-thai">สะโพกไก่ย่างบาบีคิวนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Tender chicken thigh with our signature BBQ glaze.</p>
-                    <div class="menu-item-price">
-                        <span class="price-baht">฿189</span>
-                        <span class="price-usd">~$5.40</span>
-                    </div>
-                </div>
-                <div class="coming-soon-badge">Coming Soon 💕</div>
-            </div>
-            
-            <div class="menu-item unavailable">
-                <div class="image-wrapper">
-                    <img src="images/dish7.jpg" alt="Chicken Bowl">
-                </div>
-                <div class="menu-item-content">
-                    <h3 class="menu-item-name">Juicy BBQ Chicken Bowl</h3>
-                    <p class="menu-item-thai">ข้าวบาบีคิวสะโพกไก่ย่างนุ่มฉ่ำ</p>
-                    <p class="menu-item-desc">Full meal with BBQ chicken, jasmine rice, and veggies.</p>
-                    <div class="menu-item-price">
-                        <span class="price-baht">฿199</span>
-                        <span class="price-usd">~$5.70</span>
-                    </div>
-                </div>
-                <div class="coming-soon-badge">Coming Soon 💕</div>
-            </div>
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="sparkle">🐣</span>
+                Coming Soon
+                <span class="sparkle">🐣</span>
+            </h2>
         </div>
         
-        <!-- Drinks -->
+        <div class="menu-grid" id="coming-soon-grid"></div>
+        
         <div class="drinks-section">
-            <h3 class="drinks-title">🥤 Drinks 🥤</h3>
+            <div class="section-header" style="margin: 0 0 10px;">
+                <h2 class="section-title">
+                    <span class="sparkle">🧊</span>
+                    Drinks
+                    <span class="sparkle">🧊</span>
+                </h2>
+            </div>
             <div class="drinks-grid">
-                <div class="drink-item" onclick="showToast('Coke Zero added! 🥤')">
-                    <div class="drink-emoji">🥤</div>
+                <div class="drink-card" onclick="toast('Coke Zero added! 🥤')">
+                    <span class="drink-emoji">🥤</span>
                     <div class="drink-name">Coke Zero</div>
-                    <div class="drink-thai">โค้กซีโร่ไม่มีน้ำตาล</div>
+                    <div class="drink-thai">โค้กซีโร่</div>
                     <div class="drink-price">฿40</div>
                 </div>
-                <div class="drink-item" onclick="showToast('Aura Water added! 💧')">
-                    <div class="drink-emoji">💧</div>
-                    <div class="drink-name">Aura Water 500ml</div>
-                    <div class="drink-thai">น้ำออร่า</div>
+                <div class="drink-card" onclick="toast('Aura Water added! 💧')">
+                    <span class="drink-emoji">💧</span>
+                    <div class="drink-name">Aura Water</div>
+                    <div class="drink-thai">น้ำออร่า 500ml</div>
                     <div class="drink-price">฿30</div>
                 </div>
             </div>
@@ -843,46 +734,41 @@
     
     <footer>
         <img src="images/logo.png" alt="Pinky's" class="footer-logo">
-        <p class="footer-text">Made with 💕 by PINKY'S</p>
-        <p class="footer-hours">📍 Sukhumvit 36 • Open Daily</p>
-        <div class="social-icons">
-            <a href="#" class="social-icon">📸</a>
-            <a href="#" class="social-icon">📍</a>
-            <a href="#" class="social-icon" style="background: var(--line-green);">💬</a>
-        </div>
+        <p class="footer-text">Made with 💕</p>
+        <p class="footer-sub">Sukhumvit 36 • Open Daily</p>
     </footer>
     
-    <!-- Floating Order Buttons -->
-    <div class="floating-buttons">
-        <a href="https://r.grab.com/g/6-20260203_195037_b73c6130ee314830a81e3ffadd43379e_MEXMPS-3-C7XETUNXVYL3V2" class="floating-btn grab-btn" target="_blank">
-            <span class="btn-icon">🛵</span>
-            <span class="btn-text">Grab</span>
+    <!-- Order Buttons -->
+    <div class="order-buttons">
+        <a href="https://r.grab.com/g/6-20260203_195037_b73c6130ee314830a81e3ffadd43379e_MEXMPS-3-C7XETUNXVYL3V2" class="order-btn grab" target="_blank">
+            <img src="images/grab-logo.png" alt="Grab">
+            <span>Grab</span>
         </a>
-        <a href="https://line.me/R/ti/p/@pinkys" class="floating-btn line-btn" target="_blank">
-            <span class="btn-icon">💬</span>
-            <span class="btn-text">LINE</span>
+        <a href="https://line.me/R/ti/p/@pinkys" class="order-btn line" target="_blank">
+            <img src="images/line-logo.png" alt="LINE">
+            <span>LINE</span>
         </a>
     </div>
     
-    <!-- Photo Modal -->
-    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal()">✕</button>
-            <div class="modal-gallery">
-                <img class="modal-main-img" id="modal-main-img" src="" alt="">
-                <div class="modal-thumbnails" id="modal-thumbs"></div>
+    <!-- Modal -->
+    <div class="modal" id="modal" onclick="closeModal(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <div class="modal-image">
+                <img id="modal-img" src="" alt="">
+                <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
-            <div class="modal-info">
-                <h2 class="modal-name" id="modal-name"></h2>
+            <div class="modal-thumbs" id="modal-thumbs"></div>
+            <div class="modal-body">
+                <h3 class="modal-name" id="modal-name"></h3>
                 <p class="modal-thai" id="modal-thai"></p>
                 <p class="modal-desc" id="modal-desc"></p>
                 <p class="modal-price" id="modal-price"></p>
-                <div class="modal-order-btns">
-                    <button class="order-btn grab" onclick="orderViaGrab()">
-                        🛵 Order on Grab
+                <div class="modal-actions">
+                    <button class="modal-order-btn grab" onclick="orderGrab()">
+                        <img src="images/grab-logo.png" alt=""> Grab
                     </button>
-                    <button class="order-btn line" onclick="orderViaLine()">
-                        💬 Chat on LINE
+                    <button class="modal-order-btn line" onclick="orderLine()">
+                        <img src="images/line-logo.png" alt=""> LINE
                     </button>
                 </div>
             </div>
@@ -892,165 +778,218 @@
     <div class="toast" id="toast"></div>
     
     <script>
-        // Menu Data with multiple photos
+        // Menu Data
         const menuItems = [
             {
                 name: "Juicy BBQ Pork Bowl 200g",
                 thai: "ข้าวบาบีคิวคอหมูย่างนุ่มฉ่ำ",
-                desc: "Rich, tender pork jowl with beautiful marbling, marinated 24 hours in our secret sauce. Served with fluffy jasmine rice and fresh cucumber slices. Our most popular choice!",
-                price: "฿279",
-                images: ["images/dish2.jpg", "images/dish3.jpg", "images/dish6.jpg", "images/dish7.jpg"]
+                desc: "Rich, tender pork jowl marinated 24 hours in our secret sauce. Served with fluffy jasmine rice and fresh cucumber.",
+                price: 279,
+                badge: "Most Liked",
+                images: ["images/dish2.jpg", "images/dish3.jpg", "images/dish6.jpg"]
             },
             {
                 name: "Juicy BBQ Pork Bowl 150g",
                 thai: "ข้าวบาบีคิวคอหมูย่างนุ่มฉ่ำ",
-                desc: "Our perfectly portioned bowl featuring tender BBQ pork with that beautiful caramelized glaze, served with fluffy jasmine rice and cool cucumber slices.",
-                price: "฿239",
+                desc: "Perfectly portioned bowl with tender BBQ pork, fluffy rice, and cool cucumber slices.",
+                price: 239,
+                badge: "Popular",
                 images: ["images/dish3.jpg", "images/dish2.jpg", "images/dish8.jpg"]
             },
             {
                 name: "Juicy BBQ Pork 200g",
                 thai: "บาบีคิวคอหมูย่างนุ่มฉ่ำ",
-                desc: "Pure pork perfection! 200g of our signature BBQ pork without rice - for the true meat lovers who want to savor every juicy bite.",
-                price: "฿269",
-                images: ["images/dish5.jpg", "images/dish4.jpg", "images/dish6.jpg"]
+                desc: "Pure pork perfection! 200g of signature BBQ pork — for true meat lovers.",
+                price: 269,
+                badge: null,
+                images: ["images/dish5.jpg", "images/dish4.jpg"]
             },
             {
                 name: "Juicy BBQ Pork 150g",
                 thai: "บาบีคิวคอหมูย่างนุ่มฉ่ำ",
-                desc: "150g of tender, juicy pork with our signature sweet & savory glaze. Perfect portion for a satisfying light meal.",
-                price: "฿229",
+                desc: "150g of tender, juicy pork with our signature sweet & savory glaze.",
+                price: 229,
+                badge: null,
                 images: ["images/dish4.jpg", "images/dish5.jpg"]
             },
             {
                 name: "Garden Grill Board",
                 thai: "หมูย่างสไตล์สวน",
-                desc: "Our BBQ pork served rustic-style on a beautiful wooden board with fluffy rice and fresh cucumber. Perfect for photos, even better to eat!",
-                price: "฿249",
-                images: ["images/dish8.jpg", "images/dish2.jpg", "images/dish3.jpg"]
+                desc: "BBQ pork served rustic-style on a wooden board with rice and fresh cucumber. Instagram-worthy!",
+                price: 249,
+                badge: "Fresh!",
+                images: ["images/dish8.jpg", "images/dish2.jpg"]
             },
             {
                 name: "Pinky's Box for 2",
                 thai: "เซ็ทคู่สุดคุ้ม",
-                desc: "Share the love! Two boxes of our signature BBQ pork bowls - perfect for couples, friends, or when you just can't decide. Best value on the menu!",
-                price: "฿459",
+                desc: "Share the love! Two boxes of our signature BBQ pork bowls — perfect for couples & friends.",
+                price: 459,
+                badge: "Best Value",
                 images: ["images/dish1.jpg", "images/dish2.jpg", "images/dish3.jpg"]
+            }
+        ];
+        
+        const comingSoon = [
+            {
+                name: "Juicy BBQ Chicken Thigh",
+                thai: "สะโพกไก่ย่างบาบีคิวนุ่มฉ่ำ",
+                desc: "Tender chicken thigh with our signature BBQ glaze.",
+                price: 189,
+                images: ["images/dish6.jpg"]
+            },
+            {
+                name: "Juicy BBQ Chicken Bowl",
+                thai: "ข้าวบาบีคิวสะโพกไก่ย่างนุ่มฉ่ำ",
+                desc: "Full meal with BBQ chicken, jasmine rice, and veggies.",
+                price: 199,
+                images: ["images/dish7.jpg"]
             }
         ];
         
         let currentItem = null;
         
-        // Create bubbles
+        // Render menu
+        function renderMenu() {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = menuItems.map((item, i) => `
+                <div class="menu-card" onclick="openModal(${i})">
+                    <div class="card-image">
+                        ${item.badge ? `<span class="card-badge">${item.badge}</span>` : ''}
+                        <button class="card-heart" onclick="toggleHeart(event, this)">🤍</button>
+                        <img src="${item.images[0]}" alt="${item.name}">
+                        <div class="card-tap-hint">Tap to view more 📸</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-name">${item.name}</h3>
+                        <p class="card-thai">${item.thai}</p>
+                        <p class="card-desc">${item.desc}</p>
+                        <div class="card-footer">
+                            <span class="card-price">฿${item.price}</span>
+                            <span class="card-price-usd">~$${(item.price / 35).toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Coming soon
+            const soonGrid = document.getElementById('coming-soon-grid');
+            soonGrid.innerHTML = comingSoon.map(item => `
+                <div class="menu-card unavailable">
+                    <div class="card-image">
+                        <img src="${item.images[0]}" alt="${item.name}">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-name">${item.name}</h3>
+                        <p class="card-thai">${item.thai}</p>
+                        <p class="card-desc">${item.desc}</p>
+                        <div class="card-footer">
+                            <span class="card-price">฿${item.price}</span>
+                            <span class="card-price-usd">~$${(item.price / 35).toFixed(2)}</span>
+                        </div>
+                    </div>
+                    <div class="unavailable-overlay">
+                        <span class="unavailable-badge">Coming Soon 💕</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Bubbles
         function createBubbles() {
             const container = document.getElementById('bubbles');
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < 15; i++) {
                 const bubble = document.createElement('div');
                 bubble.className = 'bubble';
-                const size = Math.random() * 45 + 15;
+                const size = Math.random() * 50 + 20;
                 bubble.style.width = size + 'px';
                 bubble.style.height = size + 'px';
                 bubble.style.left = Math.random() * 100 + '%';
-                bubble.style.animationDuration = (Math.random() * 10 + 12) + 's';
-                bubble.style.animationDelay = (Math.random() * 8) + 's';
+                bubble.style.animationDuration = (Math.random() * 12 + 10) + 's';
+                bubble.style.animationDelay = (Math.random() * 10) + 's';
                 container.appendChild(bubble);
             }
         }
-        createBubbles();
         
-        // Modal functions
+        // Modal
         function openModal(index) {
             currentItem = menuItems[index];
+            document.getElementById('modal-img').src = currentItem.images[0];
             document.getElementById('modal-name').textContent = currentItem.name;
             document.getElementById('modal-thai').textContent = currentItem.thai;
             document.getElementById('modal-desc').textContent = currentItem.desc;
-            document.getElementById('modal-price').innerHTML = currentItem.price + ' <span>(~$' + (parseInt(currentItem.price.replace('฿','')) / 35).toFixed(2) + ')</span>';
-            document.getElementById('modal-main-img').src = currentItem.images[0];
+            document.getElementById('modal-price').innerHTML = `฿${currentItem.price} <span>~$${(currentItem.price / 35).toFixed(2)}</span>`;
             
-            // Build thumbnails
-            const thumbsContainer = document.getElementById('modal-thumbs');
-            thumbsContainer.innerHTML = currentItem.images.map((img, i) => 
-                `<img src="${img}" class="modal-thumb ${i === 0 ? 'active' : ''}" onclick="setMainImage('${img}', this)">`
+            document.getElementById('modal-thumbs').innerHTML = currentItem.images.map((img, i) => 
+                `<img src="${img}" class="modal-thumb ${i === 0 ? 'active' : ''}" onclick="setImage('${img}', this)">`
             ).join('');
             
-            document.getElementById('modal').classList.add('visible');
+            document.getElementById('modal').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
         
-        function setMainImage(src, thumb) {
-            document.getElementById('modal-main-img').src = src;
+        function setImage(src, el) {
+            document.getElementById('modal-img').src = src;
             document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
+            el.classList.add('active');
         }
         
         function closeModal(e) {
-            if (!e || e.target.classList.contains('modal-overlay')) {
-                document.getElementById('modal').classList.remove('visible');
+            if (!e || e.target === document.getElementById('modal')) {
+                document.getElementById('modal').classList.remove('open');
                 document.body.style.overflow = '';
             }
         }
         
-        function orderViaLine() {
-            const msg = encodeURIComponent(`Hi! I'd like to order: ${currentItem.name} (${currentItem.price}) 🐷`);
-            window.open(`https://line.me/R/ti/p/@pinkys?text=${msg}`, '_blank');
-            closeModal();
-            createConfetti();
-            showToast('Opening LINE... 💕');
-        }
-        
-        function orderViaGrab() {
+        function orderGrab() {
             window.open('https://r.grab.com/g/6-20260203_195037_b73c6130ee314830a81e3ffadd43379e_MEXMPS-3-C7XETUNXVYL3V2', '_blank');
             closeModal();
-            createConfetti();
-            showToast('Opening Grab... 🛵');
+            confetti();
+            toast('Opening Grab... 🛵');
+        }
+        
+        function orderLine() {
+            const msg = encodeURIComponent(`Hi! I'd like to order: ${currentItem.name} (฿${currentItem.price}) 🐷`);
+            window.open(`https://line.me/R/ti/p/@pinkys?text=${msg}`, '_blank');
+            closeModal();
+            confetti();
+            toast('Opening LINE... 💬');
         }
         
         function toggleHeart(e, btn) {
             e.stopPropagation();
             btn.classList.toggle('liked');
             btn.textContent = btn.classList.contains('liked') ? '💖' : '🤍';
-            if (btn.classList.contains('liked')) {
-                createConfetti();
-            }
+            if (btn.classList.contains('liked')) confetti();
         }
         
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('visible');
-            setTimeout(() => toast.classList.remove('visible'), 2500);
+        function toast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
         }
         
-        // Confetti effect
-        function createConfetti() {
+        function confetti() {
             const colors = ['#FF69B4', '#FFB6C1', '#FF1493', '#FFD700', '#FFF'];
-            for (let i = 0; i < 30; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.cssText = `
-                    left: ${Math.random() * 100}vw;
-                    top: -10px;
-                    width: ${Math.random() * 10 + 5}px;
-                    height: ${Math.random() * 10 + 5}px;
-                    background: ${colors[Math.floor(Math.random() * colors.length)]};
-                    border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
-                    animation: confetti-fall ${Math.random() * 2 + 2}s linear forwards;
-                `;
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 4000);
+            for (let i = 0; i < 25; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + 'vw';
+                piece.style.top = '-10px';
+                piece.style.width = (Math.random() * 8 + 4) + 'px';
+                piece.style.height = (Math.random() * 8 + 4) + 'px';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(piece);
+                setTimeout(() => piece.remove(), 4000);
             }
         }
         
-        // Add confetti animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes confetti-fall {
-                to {
-                    transform: translateY(100vh) rotate(720deg);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
+        // Init
+        createBubbles();
+        renderMenu();
     </script>
 </body>
 </html>
