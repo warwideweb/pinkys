@@ -64,31 +64,18 @@
         }
         
         .logo {
-            font-family: 'Fredoka', sans-serif;
-            font-size: clamp(48px, 12vw, 80px);
-            font-weight: 700;
-            color: var(--pink-dark);
-            text-shadow: 
-                3px 3px 0 var(--white),
-                6px 6px 0 var(--pink-medium),
-                0 0 30px rgba(255, 105, 180, 0.5);
-            letter-spacing: 4px;
             animation: bounce-title 2s ease-in-out infinite;
+        }
+        
+        .logo-img {
+            max-width: clamp(200px, 50vw, 350px);
+            height: auto;
+            filter: drop-shadow(0 8px 24px rgba(255, 105, 180, 0.4));
         }
         
         @keyframes bounce-title {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
-        }
-        
-        .logo .pig {
-            display: inline-block;
-            animation: wiggle 1s ease-in-out infinite;
-        }
-        
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
         }
         
         .tagline {
@@ -435,7 +422,7 @@
     
     <header>
         <div class="logo">
-            <span class="pig">🐷</span> PINKY'S
+            <img src="images/logo.jpg" alt="Pinky's" class="logo-img">
         </div>
         <p class="tagline" id="tagline"></p>
     </header>
@@ -597,7 +584,7 @@
     </main>
     
     <footer>
-        <div class="footer-pig">🐷</div>
+        <img src="images/logo.jpg" alt="Pinky's" style="max-width: 120px; animation: footer-bounce 1s ease-in-out infinite;">
         <p class="footer-text">Made with 💕 by PINKY'S</p>
         <p style="color: var(--pink-deep); margin-top: 10px; font-size: 14px;">Open Daily 10AM - 9PM</p>
         <div class="social-icons">
